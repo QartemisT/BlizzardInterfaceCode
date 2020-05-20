@@ -18,15 +18,17 @@ function OptionsList_OnLoad (self, buttonTemplate)
 
 	--Create buttons for scrolling
 	local buttons = {};
-	local button = CreateFrame("BUTTON", name .. "Button1", self, self.buttonTemplate or buttonTemplate or "OptionsListButtonTemplate");
-	button:SetPoint("TOPLEFT", self, 0, -8);
+	local button = CreateFrame("BUTTON", nil, self, self.buttonTemplate or buttonTemplate or "OptionsListButtonTemplate");
 	self.buttonHeight = button:GetHeight();
-	tinsert(buttons, button);
 
 	local maxButtons = (self:GetHeight() - 8) / self.buttonHeight;
-	for i = 2, maxButtons do
+	for i = 1, maxButtons do
 		button = CreateFrame("BUTTON", name .. "Button" .. i, self, self.buttonTemplate or buttonTemplate or "OptionsListButtonTemplate");
-		button:SetPoint("TOPLEFT", buttons[#buttons], "BOTTOMLEFT");
+		if i == 1 then
+			button:SetPoint("TOPLEFT", self, 0, -8)
+		else
+			button:SetPoint("TOPLEFT", buttons[#buttons], "BOTTOMLEFT");
+		end
 		tinsert(buttons, button);
 	end
 
